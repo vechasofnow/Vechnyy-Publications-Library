@@ -3,7 +3,7 @@
     "mic": "2026.01.26.2026.01.29.PB.mech01",
     "title": "Relative Motion and Collision Question",
     "index": "Physics, Question, Mechanics, JEE",
-    "description": "A tricky question that requires the application of coefficient of restitution and motion of the frame of refrence.",
+    "description": "A tricky question that requires the application of coefficient of restitution and motion of the frame of reference.",
     "summary": "This question was created by myself. I feel creating it was a coping mechanism for my JEE first attempt was not upto my expectations. This question may be comparable to recent JEE Advanced questions. Answer to it is not provided because it may reduce the joy of solving it again. It is also a starting point to my aim of  formation of a Mechanics Question Paper by March 2026."
   },
   {
@@ -21,10 +21,18 @@
     "summary": "This the initialization of the introductory page of Mechanics Question Paper, March 2026. It includes the paper pattern and acknowledges contribution of external individuals."
   },
   {
-    "mic": "1920.03.27.2008.12.04.PB.bj190s",
-    "index": "",
-    "title": "A Sample Article on Physics",
-    "description": "An article about early 20th century physics.",
-    "content": "Full content of article …"
+    "mic": "1993.01.01.2020.01.01.DG.hcvvo1",
+    "title": "Concepts of Physics Vol. 1",
+    "index": "Physics, Mechanics, JEE, Optics",
+    "description": "Digital version of the book <i>Concepts of Physics Vol. 1</i> for referencing when physical copy may not be available.",
+    "summary": "Written by Dr Harish Chandra Verma, PhD, Retired Professor Department of Physics IIT, Kanpur. It has garnered special respect from me due to its physical and analytical scrutiny of concepts in various fields of discipline ranging from mechanics, optics, thermodynamics and many more. This is the volume 1 that explores mechanics and optics. Volume 2 is also available."
+  },
+  {
+    "mic": "1993.01.01.2020.01.01.DG.hcvvo2",
+    "title": "Concepts of Physics Vol. 2",
+    "index": "Physics, Thermodynamics, JEE, Electrostatics, Magnetostatics, Electromagnetism, Modern Physics",
+    "description": "Digital version of the book <i>Concepts of Physics Vol. 2</i> for referencing when physical copy may not be available.",
+    "summary": "Written by Dr Harish Chandra Verma, PhD, Retired Professor Department of Physics IIT, Kanpur. It has garnered special respect from me due to its physical and analytical scrutiny of concepts in various fields of discipline ranging from mechanics, optics, thermodynamics and many more. This is the volume 2 that explores thermodynamics, electromagnetism and atomic physics. Volume 1 is also available."
   }
-]
+
+] 

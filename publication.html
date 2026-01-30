@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publication Detail</title>
+  <link rel="stylesheet" href="style.css" />
+  <style> canvas {
+ 	 border: 1px solid #aaa;
+ 	 background: #fffdfa;
+	 width: 80%;
+	 margin: auto;
+	}
+  </style>	 
+</head>
+<body>
+  <header>
+    <h1>Vechnyy Publications Library</h1>
+    <p>A curated archive of classic works by Khalid Azmatullah</p>
+
+  </header>
+
+    <nav>
+    <ul class="mini-nav">
+    <li>
+      <a href="index.html">&larr; Back to catalog</a>
+    </li>
+    </ul>
+  </nav>
+
+  <main class="pdf_holder">
+    <section id="pub-detail">
+      <!-- detail gets injected here -->
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Vintage Publications Library</p>
+  </footer>
+
+
+  <script type="module">
+ 	 import * as pdfjsLib from './pdfjs/pdf.mjs';
+  </script>
+  <script src="js/pubdetail.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vechnyy Publications Library</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <script>
+  (function(){
+    const unlocked = sessionStorage.getItem("unlocked");
+    if (unlocked !== "yes") {
+      // not logged in, go to login page
+      window.location.href = "login.html";
+    }
+  })();
+</script>
+</head>
+<body>
+
+  <header>
+    <h1>Vechnyy Publications Library</h1>
+    <p>A curated archive of classic works by Khalid Azmatullah</p>
+  </header>
+
+  <nav>
+    <ul class="mini-nav">
+      <li><a href="index.html">All Publications</a></li>
+      <li><a href="section.html">Index</a></li>
+      <li><a href="https://vechasofnow.github.io/-/">Info</a></li>
+    </ul>
+  </nav>
+
+
+  <section class="filters">
+    <div class="index-search‑bar">
+      <input type="text" id="mainSearch" placeholder="Search" />
+    </div>
+
+    <label for="filter-type">Type:</label>
+    <select id="filter-type">
+      <option value="">All</option>
+      <option value="PB">PaperBack</option>
+      <option value="DG">Digital</option>
+      <option value="MI">Mindful Intent</option>
+    </select>
+
+    <label for="filter-year">Year &le; </label>
+    <input type="number" id="filter-year" min="0" placeholder="e.g. 2023" />
+
+    <label for="filter-author">UID:</label>
+    <input type="text" id="filter-author" placeholder="e.g. ac76g0" />
+  </section>
+
+  <main>
+    <section id="results">
+      <!-- publication entries injected here -->
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Vechnyy Publications Library</p>
+  </footer>
+
+  <script src="js/index.js"></script>
+</body>
+</html>

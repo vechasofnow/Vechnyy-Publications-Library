@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sections — Vintage Publications Library</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    (function(){
+      const unlocked = sessionStorage.getItem("unlocked");
+      if (unlocked !== "yes") {
+        window.location.href = "login.html";
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Vechnyy Publications Library</h1>
+    <p>A curated archive of classic works by Khalid Azmatullah</p>
+  </header>
+
+  <nav>
+    <ul class="mini-nav">
+      <li><a href="index.html">All Publications</a></li>
+      <li><a href="section.html">Index</a></li>
+      <li><a href="https://vechasofnow.github.io/-/">Info</a></li>
+    </ul>
+  </nav>
+
+  <section class="filters">
+    <div class="index-search‑bar">
+      <input type="text" id="mainSearch" placeholder="Search Index Terms" />
+    </div>
+  </section>
+
+  <main>
+    <section id="types-list">
+      <h3>Index Terms</h3>
+      <ul id="type-links">
+        <!-- filtered type links appear here -->
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Vintage Publications Library</p>
+  </footer>
+
+  <script src="js/sections.js"></script>
+</body>
+</html>

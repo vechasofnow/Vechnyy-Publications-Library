@@ -1,0 +1,30 @@
+[
+  {
+    "mic": "2026.01.26.2026.01.29.PB.mech01",
+    "title": "Relative Motion and Collision Question",
+    "index": "Physics, Question, Mechanics, JEE",
+    "description": "A tricky question that requires the application of coefficient of restitution and motion of the frame of refrence.",
+    "summary": "This question was created by myself. I feel creating it was a coping mechanism for my JEE first attempt was not upto my expectations. This question may be comparable to recent JEE Advanced questions. Answer to it is not provided because it may reduce the joy of solving it again. It is also a starting point to my aim of  formation of a Mechanics Question Paper by March 2026."
+  },
+  {
+    "mic": "2024.01.04.2026.01.30.PB.ccf001",
+    "title": "Circle Central Formula",
+    "index": "Mathematics, Question, Geometry",
+    "description": "CCF is defined as the formula for obtaining the co-ordinates of the centre of a circle if 3 points which pass through the circle are given.",
+    "summary": "It is mathematical formula exercised through Python and embeded using the Pyscript module. However the program may give slightly different answers due to rounding error. In itself CCF is independently dervived by myself using 10th grade mathematics and a little logic. The pure python code is on Replit and is extremely basic in nature. Further more, this is my second html project through which I learned the use of Pyscript and CSS. <br><br> <a href='\thttps://github.com/vechasofnow/CCF'\t>Github</a> <br><br> NOTE: Pdf consists of old hand-written notes, viewer may find it difficult to read."
+  },
+  {
+    "mic": "2026.01.27.2026.01.30.DG.mqpi01",
+    "title": "Mechanics Question Paper March 2026 Introduction",
+    "index": "Physics, Question, Mechanics, JEE",
+    "description": "A question paper designed to test an examinee's analytical ability and thorough understanding of concepts in mechanics.",
+    "summary": "This the initialization of the introductory page of Mechanics Question Paper, March 2026. It includes the paper pattern and acknowledges contribution of external individuals."
+  },
+  {
+    "mic": "1920.03.27.2008.12.04.PB.bj190s",
+    "index": "",
+    "title": "A Sample Article on Physics",
+    "description": "An article about early 20th century physics.",
+    "content": "Full content of article …"
+  }
+]

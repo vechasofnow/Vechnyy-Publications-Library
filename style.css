@@ -211,3 +211,10 @@ footer {
 }
 
 .indexlink:hover {text-decoration: underline;}
+
+canvas {
+  border: 1px solid #aaa;
+  background: #fffdfa;
+  width: 80%;
+  margin: auto;
+}

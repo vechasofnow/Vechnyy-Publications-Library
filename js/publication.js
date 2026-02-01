@@ -171,30 +171,33 @@ async function renderPDF(author) {
 
   container.innerHTML = "";
 
-  const pdf = await pdfjsLib
-    .getDocument(`${DATA_PATH}${author}.pdf`)
-    .promise;
+  const loadingTask = pdfjsLib.getDocument(
+    `${DATA_PATH}${encodeURIComponent(author)}.pdf`
+  );
+  const pdf = await loadingTask.promise;
 
   const scale = 1.3;
 
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-    const page = await pdf.getPage(pageNum);
-    const viewport = page.getViewport({ scale });
+    // 🔹 DO NOT await here — let it run independently
+    pdf.getPage(pageNum).then(page => {
+      const viewport = page.getViewport({ scale });
 
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-    canvas.style.display = "block";
-    canvas.style.margin = "20px auto";
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.display = "block";
+      canvas.style.margin = "20px auto";
 
-    container.appendChild(canvas);
+      container.appendChild(canvas);
 
-    await page.render({
-      canvasContext: ctx,
-      viewport
-    }).promise;
+      page.render({
+        canvasContext: ctx,
+        viewport
+      });
+    });
   }
 }
 

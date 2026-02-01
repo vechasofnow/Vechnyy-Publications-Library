@@ -91,7 +91,7 @@ function applyFilters() {
     (!type || pub.type === type) &&
     (!year || pub.year <= year || pub.lastChangedYear <= year) &&
     (!author || pub.author.toLowerCase().includes(author)) &&
-    (!search || [pub.title, pub.author, pub.mic]
+    (!search || [pub.title, pub.author, pub.mic, pub.description]
       .some(v => String(v).toLowerCase().includes(search)))
   );
   renderResults(filtered);
@@ -175,3 +175,4 @@ function splitAndDeduplicate(arr) {
       .filter(Boolean)
   )];
 }
+

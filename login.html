@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login — Vechnyy Library</title>
+  <title>Login — Vechnyy Publications Library</title>
   <style>
     body {
       font-family: Georgia, serif;
@@ -27,7 +27,6 @@
       margin-top: 0;
     }
     #loginBox input {
-      // width: 100%;
       padding: 8px;
       margin: 10px 0;
       font-size: 1em;
@@ -52,28 +51,37 @@
     <button id="btnLogin">Login</button>
     <p id="errorMsg">Wrong password, try again.</p>
   </div>
-
   <script>
-// If you are reading this just know that this "login-page" is a deterrent for non-tech savvy individuals
-    (function(){
-      const PASSWORD = "09110404122008";  // set your password
+    // If you are reading this just know that this "login" is a deterrent for non-tech savvy individuals. Fuck you by the way, you shouldn't be reading this.
+    (() => {
+      const PASSWORD = "staywithmemikimatsubara";
+      const STORAGE_KEY = "unlocked";
+
       const btn = document.getElementById("btnLogin");
       const input = document.getElementById("pwd");
       const err = document.getElementById("errorMsg");
 
       btn.addEventListener("click", attempt);
-      input.addEventListener("keydown", function(e){
+      input.addEventListener("keydown", e => {
         if (e.key === "Enter") attempt();
       });
 
+      input.addEventListener("input", () => {
+        err.style.display = "none";
+      });
+
       function attempt() {
-        const v = input.value;
-        if (v === PASSWORD) {
-          sessionStorage.setItem("unlocked", "yes");
-          window.location.href = "index.html";
-        } else {
-          err.style.display = "block";
+        const value = input.value.trim();
+
+        if (!value) return;
+
+        if (value === PASSWORD) {
+          sessionStorage.setItem(STORAGE_KEY, "yes");
+          window.location.replace("index.html");
+          return;
         }
+
+        err.style.display = "block";
       }
     })();
   </script>

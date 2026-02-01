@@ -1,108 +1,177 @@
-function getQueryParam(name) {
-  const url = new URL(window.location.href);
-  return url.searchParams.get(name);
+// =====================
+// DOM CACHE
+// =====================
+const resultsDiv   = document.getElementById("results");
+const filterType   = document.getElementById("filter-type");
+const filterYear   = document.getElementById("filter-year");
+const filterAuthor = document.getElementById("filter-author");
+const mainSearch   = document.getElementById("mainSearch");
+
+// =====================
+// STATE
+// =====================
+let allPublications = [];
+
+// =====================
+// INIT
+// =====================
+document.addEventListener("DOMContentLoaded", init);
+
+async function init() {
+  try {
+    const resp = await fetch("data/publications.json");
+    const data = await resp.json();
+
+    allPublications = data.map(parseMIC);
+    
+    let filteredPublications = [];
+    
+    filteredPublications = applyURLParamsAndCheckIndex()
+    if (!filteredPublications) filteredPublications = applyFilters();
+    renderResults(filteredPublications);
+
+    // Event listeners
+    if (mainSearch) {
+      filterType.addEventListener("change", applyFilters);
+      filterYear.addEventListener("input", applyFilters);
+      filterAuthor.addEventListener("input", applyFilters);
+      mainSearch.addEventListener("input", applyFilters);
+    }
+
+  } catch (err) {
+    console.error("Error loading publications:", err);
+    resultsDiv.textContent = "Error loading publications.";
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const resultsDiv = document.getElementById("results");
-  const filterType = document.getElementById("filter-type");
-  const filterYear = document.getElementById("filter-year");
-  const filterAuthor = document.getElementById("filter-author");
-  const mainSearch = document.getElementById("mainSearch");
+// =====================
+// DATA NORMALIZATION
+// =====================
+function parseMIC(pub) {
+  const parts = String(pub.mic || "").split(".");
+  if (parts.length < 8) return pub;
 
-  let publications = [];
+  const [
+    year, m1, d1,
+    lastYear, m2, d2,
+    type, author
+  ] = parts;
 
-  fetch('data/publications.json')
-    .then(resp => resp.json())
-    .then(data => {
-      publications = data;
+  const TYPE_MAP = {
+    DG: "Digital",
+    PB: "PaperBack",
+    MI: "Mindful Intent",
+    AD: "Audio",
+    AV: "AudioVisual"
+  };
 
-      publications.forEach(pub => {
-          const input = pub.mic;
-          const parts = input.split('.');
-          pub.year = parseInt(parts[0], 10)
-          pub.monthDate = parts[1] + '.' + parts[2]
-          pub.lastChangedYear = parseInt(parts[3], 10)
-          pub.lastChangedMonthDate = parts[4] + '.' + parts[5]
-          pub.type = parts[6]
-          if (parts[6] == "DG") {
-            pub.fulltype = "Digital"
-          } if (parts[6] == "PB") {
-            pub.fulltype = "PaperBack"
-          } if (parts[6] == "MI") {
-            pub.fulltype = "Mindful Intent"
-          }
-          pub.author = parts[7]    
-          console.log(pub)  
-        })
-      console.log(publications)
-      // Pre‑set filters from URL params
-      const typeParam = getQueryParam("type");
-      if (typeParam) filterType.value = typeParam;
+  return {
+    ...pub,
+    year: Number(year),
+    monthDate: `${m1}.${d1}`,
+    lastChangedYear: Number(lastYear),
+    lastChangedMonthDate: `${m2}.${d2}`,
+    type,
+    fulltype: TYPE_MAP[type] ?? type,
+    author,
+    index: splitAndDeduplicate([pub.index ?? ""])
+  };
+}
 
-      const searchParam = getQueryParam("search");
-      if (searchParam) {
-        mainSearch.value = searchParam;
-      }
+// =====================
+// FILTERING
+// =====================
+function applyFilters() {
+  const type   = filterType.value;
+  const year   = filterYear.valueAsNumber;
+  const author = filterAuthor.value.trim().toLowerCase();
+  const search = mainSearch.value.trim().toLowerCase();
 
-      renderResults(publications);
-      applyFilters();
-    })
-    .catch(err => {
-      console.error("Error loading publications:", err);
-      resultsDiv.innerHTML = `<p>Error loading publications.</p>`;
-    });
+  const filtered = allPublications.filter(pub =>
+    (!type || pub.type === type) &&
+    (!year || pub.year <= year || pub.lastChangedYear <= year) &&
+    (!author || pub.author.toLowerCase().includes(author)) &&
+    (!search || [pub.title, pub.author, pub.mic]
+      .some(v => String(v).toLowerCase().includes(search)))
+  );
+  renderResults(filtered);
+  return filtered;
+}
 
-  filterType.addEventListener("change", applyFilters);
-  filterYear.addEventListener("input", applyFilters);
-  filterAuthor.addEventListener("input", applyFilters);
-  mainSearch.addEventListener("input", applyFilters);
+// =====================
+// URL PARAMS
+// =====================
+function applyURLParamsAndCheckIndex() {
+  const type   = getQueryParam("type");
+  const index  = getQueryParam("index");
+  const search = getQueryParam("search");
 
-  function applyFilters() {
-    const t = filterType.value;
-    const y = filterYear.valueAsNumber;
-    const a = filterAuthor.value.trim().toLowerCase();
-    const s = mainSearch.value.trim().toLowerCase();
+  if (type)   filterType.value = type;
+  if (search) mainSearch.value = search;
 
-    const filtered = publications.filter(pub => {
+  if (index) {
+    filteredPublications = allPublications.filter(pub =>
+      Array.isArray(pub.index) && pub.index.includes(index)
+    );
+    return filteredPublications
+  }
+  return null
+}
 
-      let ok = true;
-      if (t) ok = ok && (pub.type === t);
-      if (!isNaN(y) && y) ok = ok && (pub.year <= y || pub.lastChangedYear <=y);
-      if (a) ok = ok && (pub.author.toLowerCase().includes(a));
-      if (s) {
-        ok = ok && (
-          pub.title.toLowerCase().includes(s) ||
-          pub.author.toLowerCase().includes(s) || 
-          pub.mic.toLowerCase().includes(s)
-        );
-      }
-      return ok;
-    });
+function getQueryParam(name) {
+  return new URL(window.location.href).searchParams.get(name);
+}
 
-    renderResults(filtered);
+// =====================
+// RENDERING
+// =====================
+function renderResults(list) {
+  resultsDiv.innerHTML = "";
+
+  if (!list.length) {
+    resultsDiv.textContent = "No matching publications found.";
+    return;
   }
 
-  function renderResults(list) {
-    if (list.length === 0) {
-      resultsDiv.innerHTML = `<p>No matching publications found.</p>`;
-      return;
-    }
-    resultsDiv.innerHTML = "";
-    list.forEach(pub => {
-      const div = document.createElement("div");
-      div.classList.add("publication");
-      div.innerHTML = `
-        <h2><a href="publication.html?id=${pub.mic}">${pub.title}</a></h2>
-        <div class="meta">
-          <strong>UID:</strong> ${pub.author} |
-          <strong>Year:</strong> ${pub.year} |
-          <strong>Type:</strong> ${pub.fulltype}
-        </div>
-        <p class="description">${pub.description}</p>
-        <p><a href="publication.html?id=${pub.mic}" target="_blank">Publication Link / More Info</a></p>
-      `;
-      resultsDiv.appendChild(div);
-    });
-  }
-});
+  const fragment = document.createDocumentFragment();
+
+  list.forEach(pub => {
+    const div = document.createElement("div");
+    div.className = "publication";
+
+    div.innerHTML = `
+      <h2>
+        <a href="publication.html?id=${encodeURIComponent(pub.mic)}">
+          ${pub.title}
+        </a>
+      </h2>
+      <div class="meta">
+        <strong>UID:</strong> ${pub.author} |
+        <strong>Year:</strong> ${pub.year} |
+        <strong>Type:</strong> ${pub.fulltype}
+      </div>
+      <p class="description">${pub.description}</p>
+      <p>
+        <a href="publication.html?id=${encodeURIComponent(pub.mic)}" target="_blank">
+          Publication Link / More Info
+        </a>
+      </p>
+    `;
+
+    fragment.appendChild(div);
+  });
+
+  resultsDiv.appendChild(fragment);
+}
+
+// =====================
+// UTILITIES
+// =====================
+function splitAndDeduplicate(arr) {
+  return [...new Set(
+    arr
+      .flatMap(v => String(v).split(","))
+      .map(v => v.trim())
+      .filter(Boolean)
+  )];
+}

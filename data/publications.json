@@ -1,5 +1,12 @@
 [
   {
+    "mic": "2026.01.30.2026.02.01.AV.fimehl",
+    "title": "Fresh Indian man expresses his love",
+    "index": "Love, Youtube, Funny, Parody",
+    "description": "Video where Radhak Jocko confesses his love to an unnamed maiden.",
+    "summary": "This is a fascinating video I found on youtube where we apparently witness Radhak Jocko make a love admission to his crush in what can only be described as a youthful manner. The video which was uploaded on 4th March 2012 and can be found <a href=\"https://www.youtube.com/watch?v=junO4SdzlaQ\">here</a>. The man in the video based on his accent seems to belong to the southern part of India. He also seems to have an interesting choice in fashion wearing a shirt on top of another shirt. The vibe of the video and the buttery script makes it very enjoyable to watch."
+  },
+  {
     "mic": "2026.01.26.2026.01.29.PB.mech01",
     "title": "Relative Motion and Collision Question",
     "index": "Physics, Question, Mechanics, JEE",
@@ -21,14 +28,14 @@
     "summary": "This the initialization of the introductory page of Mechanics Question Paper, March 2026. It includes the paper pattern and acknowledges contribution of external individuals."
   },
   {
-    "mic": "1993.01.01.2020.01.01.DG.hcvvo1",
+    "mic": "2026.01.30.2026.01.31.DG.hcvvo1",
     "title": "Concepts of Physics Vol. 1",
     "index": "Physics, Mechanics, JEE, Optics",
     "description": "Digital version of the book <i>Concepts of Physics Vol. 1</i> for referencing when physical copy may not be available.",
     "summary": "Written by Dr Harish Chandra Verma, PhD, Retired Professor Department of Physics IIT, Kanpur. It has garnered special respect from me due to its physical and analytical scrutiny of concepts in various fields of discipline ranging from mechanics, optics, thermodynamics and many more. This is the volume 1 that explores mechanics and optics. Volume 2 is also available."
   },
   {
-    "mic": "1993.01.01.2020.01.01.DG.hcvvo2",
+    "mic": "2026.01.30.2026.01.31.DG.hcvvo2",
     "title": "Concepts of Physics Vol. 2",
     "index": "Physics, Thermodynamics, JEE, Electrostatics, Magnetostatics, Electromagnetism, Modern Physics",
     "description": "Digital version of the book <i>Concepts of Physics Vol. 2</i> for referencing when physical copy may not be available.",
@@ -43,4 +50,5 @@
   }
 
 ] 
+
 

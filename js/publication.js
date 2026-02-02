@@ -161,7 +161,7 @@ function renderDetail(pub, path) {
   `;
 
   if (referSource) {
-    toBeRendered = toBeRendered + `<p><strong>Refer Source:</strong>${referSource}</p>`;
+    toBeRendered = toBeRendered + `<p><strong>Refer Source: </strong>${referSource}</p>`;
   };
   
   detailDiv.innerHTML = toBeRendered
@@ -244,5 +244,6 @@ function getDaySuffix(day) {
   if (day >= 11 && day <= 13) return "th";
   return ["th", "st", "nd", "rd"][day % 10] || "th";
 }
+
 
 

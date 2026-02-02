@@ -38,7 +38,13 @@ async function init() {
     const sourcePath = getSourcePath(pub);
 
     renderDetail(pub, sourcePath);
-    await renderMedia(pub);
+    try {
+      await renderMedia(pub);
+    } catch (err) {
+      console.error(err);
+      const holder = document.querySelector(".media_holder");
+      holder.textContent = "Error loading PDF";
+    }
 
   } catch (err) {
     console.error(err);
@@ -237,3 +243,4 @@ function getDaySuffix(day) {
   if (day >= 11 && day <= 13) return "th";
   return ["th", "st", "nd", "rd"][day % 10] || "th";
 }
+

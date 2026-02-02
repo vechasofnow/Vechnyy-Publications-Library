@@ -43,7 +43,7 @@ async function init() {
     } catch (err) {
       console.error(err);
       const holder = document.querySelector(".media_holder");
-      holder.textContent = "Error loading PDF";
+      holder.textContent = "This media couldn’t be loaded. Please try accessing it directly from the source.";
     }
 
   } catch (err) {
@@ -136,9 +136,9 @@ function renderDetail(pub, path) {
 
   const referSource = path
     ? `<a href="${path}" target="_blank">${path.split("/").pop()}</a>`
-    : "—";
+    : null;
 
-  detailDiv.innerHTML = `
+   let toBeRendered = `
     <h2>${pub.title}</h2>
 
     <div class="meta">
@@ -158,12 +158,13 @@ function renderDetail(pub, path) {
     <p class="description">${pub.description ?? ""}</p>
 
     <div class="content">${pub.summary ?? ""}</div>
-
-    <p>
-      <strong>Refer Source:</strong>
-      ${referSource}
-    </p>
   `;
+
+  if (referSource) {
+    toBeRendered = toBeRendered + `<p><strong>Refer Source:</strong>${referSource}</p>`;
+  };
+  
+  detailDiv.innerHTML = toBeRendered
 }
 
 // =====================
@@ -243,4 +244,5 @@ function getDaySuffix(day) {
   if (day >= 11 && day <= 13) return "th";
   return ["th", "st", "nd", "rd"][day % 10] || "th";
 }
+
 
